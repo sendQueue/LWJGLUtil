@@ -19,6 +19,28 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
  */
 public class GL11Util {
 	
+		/**
+	 * Defines a rectangle (scissorBox) in window coordinates not GL's: from
+	 * https://vinii.de/github/LWJGLUtil/scissorBoxGL.png to
+	 * https://vinii.de/github/LWJGLUtil/scissorBoxWindow.png
+	 * 
+	 * @param x
+	 * @param y
+	 * @param x2
+	 * @param y2
+	 */
+	public static void scissorBox(final int x, final int y, final int width, final int height) {
+		final ScaledResolution scaledResolution = new ScaledResolution(mc);
+		final int factor = scaledResolution.getScaleFactor();
+
+		GL11.glEnable(GL11.GL_SCISSOR_TEST);
+
+		GL11.glScissor(x * factor, (scaledResolution.getScaledHeight() - (y + height)) * factor,
+				((x + width) - x) * factor, ((y + height) - y) * factor);
+
+		// disable GL_SCISSOR_TEST after bounding
+	}
+	
 	/**
 	 * Draws rect with rounded corners, how it's made:
 	 * https://vinii.de/github/LWJGLUtil/roundedRect.png
