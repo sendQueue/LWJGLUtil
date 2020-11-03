@@ -37,7 +37,7 @@ public class GL11Util {
 		float calcWidth = (width - ((radius / 2f) + 0.5f));
 		float calcHeight = (height - ((radius / 2f) + 0.5f));
 		// top (pink)
-		relativeRect(x2 + radius / 2f, y2 - radius / 2f, x2 + calcWidth - radius / 2f, y + calcHeight - radius / 2f,
+		relativeRect(x2 + radius / 2f, y2 - radius / 2f - 0.5f, x2 + calcWidth - radius / 2f, y + calcHeight - radius / 2f,
 				color);
 		// bottom (yellow)
 		relativeRect(x2 + radius / 2f, y2, x2 + calcWidth - radius / 2f, y2 + calcHeight + radius / 2f + 0.5f, color);
