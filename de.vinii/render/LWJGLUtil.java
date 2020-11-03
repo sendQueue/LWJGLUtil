@@ -32,7 +32,6 @@ public class GL11Util {
 	 */
 	public static void drawRoundedRect(final float x, final float y, final float width, final float height,
 			final float radius, final int color) {
-
 		float x2 = x + ((radius / 2f) + 0.5f);
 		float y2 = y + ((radius / 2f) + 0.5f);
 		float calcWidth = (width - ((radius / 2f) + 0.5f));
