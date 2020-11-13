@@ -19,7 +19,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
  */
 public class GL11Util {
 	
-		/**
+	/**
 	 * Defines a rectangle (scissorBox) in window coordinates not GL's: from
 	 * https://vinii.de/github/LWJGLUtil/scissorBoxGL.png to
 	 * https://vinii.de/github/LWJGLUtil/scissorBoxWindow.png
@@ -39,6 +39,42 @@ public class GL11Util {
 				((x + width) - x) * factor, ((y + height) - y) * factor);
 
 		// disable GL_SCISSOR_TEST after bounding
+	}
+	
+	
+	/**
+	 * Draws a rectangle.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param color
+	 */
+	public static void drawRect(final float x, final float y, final float width, final float height, final int color) {
+		GL11.glEnable(3042);
+		GL11.glDisable(3553);
+		GL11.glBlendFunc(770, 771);
+		GL11.glEnable(2848);
+		GL11.glShadeModel(7425);
+
+		GL11.glPushMatrix();
+		GL11.glBegin(7);
+
+		glColor(color);
+
+		GL11.glVertex2d(x, y);
+		GL11.glVertex2d(x, y + height);
+		GL11.glVertex2f(x + width, y + height);
+		GL11.glVertex2f(x + width, y);
+
+		GL11.glEnd();
+		GL11.glPopMatrix();
+
+		GL11.glEnable(3553);
+		GL11.glDisable(3042);
+		GL11.glDisable(2848);
+		GL11.glShadeModel(7424);
 	}
 	
 	/**
