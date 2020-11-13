@@ -20,6 +20,66 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 public class GL11Util {
 	
 	/**
+	 * Makes a color darker with a custom factor.
+	 * <p>
+	 * <h1>CAUTION: 0 < FACTOR < 1!</h1>
+	 * <p>
+	 * Might be inconsistent because of rounding errors.
+	 * 
+	 * @param color
+	 * @param factor
+	 * @return
+	 */
+	public static Color darker(Color color, float factor) {
+		//in case of keks
+		factor = MathHelper.clamp_float(factor, 0.001f, 0.999f);
+		
+		return new Color(Math.max((int) (color.getRed() * factor), 0), Math.max((int) (color.getGreen() * factor), 0),
+				Math.max((int) (color.getBlue() * factor), 0), color.getAlpha());
+	}
+
+	/**
+	 * Makes a color brighter/lighter with a custom factor.
+	 * <p>
+	 * <h1>CAUTION: 0 < FACTOR < 1!</h1>
+	 * <p>
+	 * Might be inconsistent because of rounding errors.
+	 * 
+	 * @param color
+	 * @param factor
+	 * @return
+	 */
+	public static Color brighter(Color color, float factor) {
+		//in case of keks
+		factor = MathHelper.clamp_float(factor, 0.001f, 0.999f);
+		
+		int r = color.getRed();
+		int g = color.getGreen();
+		int b = color.getBlue();
+		int alpha = color.getAlpha();
+
+		/*
+		 * From 2D group: 1. black.brighter() should return grey 2. applying brighter to
+		 * blue will always return blue, brighter 3. non pure color (non zero rgb) will
+		 * eventually return white
+		 */
+
+		int i = (int) (1.0 / (1.0 - factor));
+		if (r == 0 && g == 0 && b == 0) {
+			return new Color(i, i, i, alpha);
+		}
+		if (r > 0 && r < i)
+			r = i;
+		if (g > 0 && g < i)
+			g = i;
+		if (b > 0 && b < i)
+			b = i;
+
+		return new Color(Math.min((int) (r / factor), 255), Math.min((int) (g / factor), 255),
+				Math.min((int) (b / factor), 255), alpha);
+	}
+	
+	/**
 	 * Defines a rectangle (scissorBox) in window coordinates not GL's: from
 	 * https://vinii.de/github/LWJGLUtil/scissorBoxGL.png to
 	 * https://vinii.de/github/LWJGLUtil/scissorBoxWindow.png
