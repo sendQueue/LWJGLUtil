@@ -194,7 +194,8 @@ public class GL11Util {
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
 		glColor(color);
-
+		/*        worldRenderer.begin -> .func_181668_a
+        worldRenderer.pos -> .func_181662_b*/
 		worldRenderer.begin(7, DefaultVertexFormats.POSITION);
 		worldRenderer.pos(left, bottom, 0).endVertex();
 		worldRenderer.pos(right, bottom, 0).endVertex();
